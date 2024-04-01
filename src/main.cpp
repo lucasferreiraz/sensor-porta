@@ -1,18 +1,25 @@
 #include <Arduino.h>
 
-// put function declarations here:
-int myFunction(int, int);
+#define GREEN_LED_PIN 25
+#define PIR_PIN 13
 
 void setup() {
-  // put your setup code here, to run once:
-  int result = myFunction(2, 3);
+  Serial.begin(9600);
+  pinMode(PIR_PIN, INPUT);
+  pinMode(GREEN_LED_PIN, OUTPUT);
+  digitalWrite(PIR_PIN, LOW);
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
-}
+  int movimento = digitalRead(PIR_PIN);
 
-// put function definitions here:
-int myFunction(int x, int y) {
-  return x + y;
+  if (movimento == HIGH) {
+    digitalWrite(GREEN_LED_PIN, HIGH);
+    Serial.println("Movimento Detectado.");
+  } else {
+    digitalWrite(GREEN_LED_PIN, LOW);
+    Serial.println("Sem Movimento.");
+  }
+
+  delay(2000);
 }
